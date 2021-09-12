@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="new_news">
+		<div>
+			<div class="row">
+				<div>
+					<h1>最新消息</h1>
+					<form action="#" th:object="${news}">
+
+						<div class="table-responsive">
+							<table class="table table-borderless">
+								<thead>
+									<tr>
+										<th scope="col" class="col-2">編號</th>
+										<th scope="col" class="col-4">標題</th>
+										<th scope="col" class="col-2">發佈人</th>
+										<th scope="col" class="col-2">發佈日期</th>
+										<th scope="col" class="col-2">更新日期</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="news:${news}">
+										<th th:text="${news.id}"></th>
+									
+										<td ><a th:href="@{/newsDetails/{id}(id=${news.id})}" th:text="${news.title}"></a></td>
+										<td th:text="${news.name}"></td>
+										<td th:text="${news.createAt}"></td>
+										<td th:text="${news.updateAt}"></td>
+
+									</tr>
+
+								</tbody>
+							</table>
+							<div>
+								<!-- <div class="row">
+									<div class="col-4 col-sm-4">總共項次:
+										&nbsp;[[${totalItems}]]</div>
+									<div class="col-4 col-sm-4">頁數:
+										&nbsp;[[${currentPage}]] &nbsp; of &nbsp;[[${totalPages}]]</div>
+									<div class="col-4 col-sm-4">
+										page:<span th:each="i:${#numbers.sequence(1,totalPages)}">
+											&nbsp;<a th:href="@{'/page/'+${i}}">[[${i}]]</a>&nbsp;
+										</span>
+									</div> -->
+								</div>
+							</div>
+
+						</div>
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

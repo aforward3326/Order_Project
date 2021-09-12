@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap Icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<!-- SimpleLightbox plugin CSS-->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="css/styles.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+<body>
+	<!-- Navbar -->
+	<header th:replace="main/header::header"> </header>
+	<canvas class="my-4 w-100" id="myChart" width="900" height="30"></canvas>
+	<div>
+		<main>
+			<div class="container-fluid">
+				<div class="row">
+					<nav id="sidebarMenu"
+						class="col-md-2 col-lg-2 d-md-block bg-light sidebar collapse"
+						th:insert="dashboard/sidebar::navbar_side"></nav>
+
+					<div class="col-md-10 col-lg-10">
+						<h1>最新消息</h1>
+						<form action="#" th:object="${news}">
+
+							<div class="table-responsive">
+								<table class="table table-borderless">
+									<thead>
+										<tr>
+											<th scope="col" class="col-2">編號</th>
+											<th scope="col" class="col-4">標題</th>
+											<th scope="col" class="col-2">發佈人</th>
+											<th scope="col" class="col-2">發佈日期</th>
+											<th scope="col" class="col-2">更新日期</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="news:${news}">
+											<th th:text="${news.id}"></th>
+
+											<td><a th:href="@{/newsDetails/{id}(id=${news.id})}"
+												th:text="${news.title}"></a></td>
+											<td th:text="${news.name}"></td>
+											<td th:text="${news.createAt}"></td>
+											<td th:text="${news.updateAt}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+								<div>
+									<!-- <div class="row">
+									<div class="col-4 col-sm-4">總共項次:
+										&nbsp;[[${totalItems}]]</div>
+									<div class="col-4 col-sm-4">頁數:
+										&nbsp;[[${currentPage}]] &nbsp; of &nbsp;[[${totalPages}]]</div>
+									<div class="col-4 col-sm-4">
+										page:<span th:each="i:${#numbers.sequence(1,totalPages)}">
+											&nbsp;<a th:href="@{'/page/'+${i}}">[[${i}]]</a>&nbsp;
+										</span>
+									</div> -->
+								</div>
+							</div>
+					</div>
+				</div>
+
+			</div>
+		</main>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div th:replace="main/footer::footer"></div>
+			</div>
+		</div>
+	</footer>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

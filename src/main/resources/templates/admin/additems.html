@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmls:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap Icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<!-- SimpleLightbox plugin CSS-->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="css/styles.css" rel="stylesheet"
+	th:href="@{/css/styles.css}" />
+<body>
+	<!-- Navbar -->
+	<header th:insert="dashboard/header::dash_header"> </header>
+	<main>
+		<canvas class="my-4 w-100" id="myChart" width="900" height="30"></canvas>
+		<div class="container-fluid">
+			<div class="row">
+				<nav id="sidebarMenu"
+					class="col-md-2 col-lg-2 d-md-block bg-light sidebar collapse"
+					th:insert="dashboard/sidebar::navbar_side"></nav>
+				<div class="col-lg-10 col-md-10 col-sm-10">
+					<h1>新增品項</h1>
+					<form th:action="@{/saveOrderItem}" th:object="${orderItems}"
+						method="post">
+						<div class="form-group">
+							<label for="exampleFormControlInput1">名稱</label> <input
+								type="text" th:field="*{item}" class="form-control mb-4 col-8"><br>
+							<label for="exampleFormControlInput1">單價</label> <input
+								type="number" min="1" max="10000" th:field="*{price}"
+								class="form-control mb-4 col-8"><br> <label
+								for="exampleFormControlInput1"></label> <input type="hidden"
+								th:object="${member}" th:field="*{name}"
+								class="form-control mb-4 col-8"> <label
+								for="exampleFormControlInput1"></label> <input type="hidden"
+								th:object="${member}" th:field="*{memberId}"
+								class="form-control mb-4 col-8"> <br> <label
+								for="exampleFormControlInput1">開始日期(0:00)</label> <input
+								type="date" th:field="*{startTime}"
+								class="form-control mb-4 col-8"><br> <label
+								for="exampleFormControlInput1">結束日期(12:00)</label> <input
+								type="date" th:field="*{endTime}"
+								class="form-control mb-4 col-8"><br>
+						</div>
+						<button type="submit" class="btn btn-info col-2">新增</button>
+						<br>
+					</form>
+				</div>
+
+			</div>
+		</div>
+
+	</main>
+	<hr>
+	<footer>
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div th:replace="main/footer::footer"></div>
+			</div>
+		</div>
+	</footer>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

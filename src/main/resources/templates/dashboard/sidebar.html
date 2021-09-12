@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmls:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<div class="position-sticky padding-top pt-3"
+			th:fragment="navbar_side">
+			<ul class="nav flex-column">
+
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" th:href="@{/dashboard}"> <span
+						data-feather="home"></span>
+						<p style="display: none">
+							<b>[[${#request.userPrincipal.principal.memberId}]]</b>
+						</p>管理介面
+				</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+					role="button" aria-haspopup="true" aria-expanded="false">帳號管理</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item"
+							th:href="@{/updatemember/{id}(id=${#request.userPrincipal.principal.memberId})}">基本資料</a>
+						<a class="dropdown-item"
+							th:href="@{/updatememberpassword/{id}(id=${#request.userPrincipal.principal.memberId})}">變更密碼</a>
+						<a class="dropdown-item" th:href="@{/all_memberlist}">會員清單</a>
+					</div></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+					role="button" aria-haspopup="true" aria-expanded="false">訂單管理</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item"
+							th:href="@{/dashboard/order_search/{id} (id=${#request.userPrincipal.principal.memberId})}">會員購買清單</a>
+						<a class="dropdown-item" th:href="@{/all_orderlist}">全部購買清單</a>
+					</div></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+					role="button" aria-haspopup="true" aria-expanded="false">產品管理</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" th:href="@{/all_orderitemslist}">產品清單</a>
+						<a class="dropdown-item"
+							th:href="@{/addOrderItem/{id} (id=${#request.userPrincipal.principal.memberId})}">新增產品</a>
+					</div></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+					role="button" aria-haspopup="true" aria-expanded="false">公告欄管理</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" th:href="@{/all_newslist}">所有公告</a> <a
+							class="dropdown-item"
+							th:href="@{/addnews/{id} (id=${#request.userPrincipal.principal.memberId})}">新增公告</a>
+					</div></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

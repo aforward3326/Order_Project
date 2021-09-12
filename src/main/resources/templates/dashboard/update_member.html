@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmls:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap Icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<!-- SimpleLightbox plugin CSS-->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+	<header  th:replace="dashboard/header::dash_header"></header>
+	<canvas class="my-4 w-100" id="myChart" width="900" height="10"></canvas>
+	<main>
+		<div class="container-fluid">
+			<div class="row">
+				<nav id="sidebarMenu"
+					class="col-md-2 col-lg-2 d-md-block bg-light sidebar collapse"
+					th:insert="dashboard/sidebar::navbar_side"></nav>
+
+				<div class="col-md-10 col-lg-10">
+					<canvas class="my-4 w-100" id="myChart" width="900" height="30"></canvas>
+					<h1>變更會員資料</h1>
+					<form action="#" th:action="@{/updateMember}" th:object="${member}"
+						method="post">
+						<input type="hidden" th:field="*{memberId}">
+						<div th:if="${message != null }">[[${message}]]</div>
+						<br> <br> <label for="exampleFormControlInput1">電子信箱</label>
+						<input type="text" th:field="*{userEmail}" readonly="readonly"
+							class="form-control mb-4 col-8"><br> <br> <label
+							for="exampleFormControlInput1">姓名</label> <input type="text"
+							th:field="*{name}" class="form-control mb-4 col-8"><br>
+						<div class="form-group">
+							<label for="exampleFormControlSelect1">性別</label> <select
+								th:field="*{sex}" class="form-control mb-4 col-8"><br>
+								<option th:each="sex:${sexes}" th:value="${sex.key}"
+									th:text="${sex.key}"></option>
+							</select>
+						</div>
+						<label for="exampleFormControlInput1">單位</label> <input
+							type="text" th:field="*{unit}" class="form-control mb-4 col-8">
+						<br> <label for="exampleFormControlInput1">手機</label> <input
+							type="tel" pattern="[0-9]{4}(\-[0-9]{6})" th:field="*{cellphone}"
+							placeholder="例如:0912-345678" title="例如:0912-345678"
+							class="form-control mb-4 col-8"><br> <label
+							for="exampleFormControlInput1">分機</label> <input type="text"
+							th:field="*{officephone}" placeholder="例如:#123"
+							class="form-control mb-4 col-8"><br> <br> <label
+							for="exampleFormControlInput1">地址</label> <input type="text"
+							th:field="*{address}" class="form-control mb-4 col-8"><br>
+						<button type="submit" class="btn btn-info col-2">更新</button>
+						<br> <br>
+					</form>
+					<hr>
+					<a th:href="@{/dashboard}" class="btn btn-info col-2">返回</a>
+				</div>
+			</div>
+		</div>
+
+	</main>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>
