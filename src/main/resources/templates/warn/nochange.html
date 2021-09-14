@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html xmls:th="http://www.thymeleaf.org/">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<!-- Favicon-->
+	<!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap Icons-->
 <link
@@ -24,41 +29,37 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css"
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}"/>
+<link href="css/styles.css" rel="stylesheet" />
 </head>
-<body>
-	<header>
-		<div th:replace="dashboard/header::dash_header"></div>
-	</header>
+<body >
+	<!-- Navbar -->
+	<header th:insert="dashboard/header::dash_header"> </header>
 	<canvas class="my-4 w-100" id="myChart" width="900" height="30"></canvas>
 	<main>
+		<!-- MainPage -->
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-2 col-lg-2">
-					<nav id="sidebarMenu" class=" d-md-block bg-light sidebar collapse"
-						th:insert="dashboard/sidebar::navbar_side"></nav>
-				</div>
+				<nav id="sidebarMenu"
+					class="col-md-2 col-lg-2 d-md-block bg-light sidebar collapse"
+					th:insert="dashboard/sidebar::navbar_side"></nav>
+
 				<div class="col-md-10 col-lg-10">
 					<canvas class="my-4 w-100" id="myChart" width="900" height="0"></canvas>
-					<h1>變更密碼</h1>
-					<form action="#" th:action="@{/updateMemberPasswordbyadmin}"
-						th:object="${member}" method="post">
-						<input type="hidden" th:field="*{memberId}"><br> <label
-							for="exampleFormControlInput1">新密碼</label> <input type="password"
-							th:field="*{password}" value="" class="form-control mb-4 col-8"><br>
-						<label for="exampleFormControlInput1">確認新密碼</label> <input
-							type="password" class="form-control mb-4 col-8"><br>
-							
-						
-						<button type="submit" class="btn btn-info col-2">更新</button>
-						<br> <br>
-					</form>
-					<hr>
-					<a th:href="@{/dashboard}" class="btn btn-info col-2">返回</a>
+					<h1>資料未變更</h1>
+
 				</div>
 			</div>
 		</div>
+
+
 	</main>
+	<footer>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div th:replace="main/footer::footer"></div>
+			</div>
+		</div>
+	</footer>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -16,11 +16,15 @@ public interface MemberService {
 	
 	Member getMemberById(String id) ;
 	
-	void deleteMember(Long id);
+	void deleteMember(String id);
 	
 	String updateMember(Member member);
 	
 	String updateMemberPassword(Member member);
+	
+	void updateMemberPasswordByAdmin(Member member);
+	
+	void updateMemberPasswordAndRoles(Member member);
 	
 	void saveMemberWithDefaultRole(Member member);
 	

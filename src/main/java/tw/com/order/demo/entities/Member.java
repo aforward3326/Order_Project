@@ -16,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,6 +25,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import tw.com.order.demo.entities.seq.MemberSequenceGenerator;
 
 @Entity
+@DynamicInsert(value = false)
+@DynamicUpdate(value = false)
 public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ")
@@ -58,7 +62,7 @@ public class Member {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "member_role", joinColumns = @JoinColumn(name = "memberId"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
+	private Set<Role> role = new HashSet<>();
 
 	public Member() {
 
@@ -152,16 +156,22 @@ public class Member {
 		this.sex = sex;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
+	public Set<Role> getRole() {
+		return role;
 	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRole(Set<Role> roles) {
+		this.role = roles;
 	}
 
 	public void addRole(Role role) {
-		this.roles.add(role);
+		this.role.add(role);
 	}
+	
+	public void remove(Role role) {
+		this.role.remove(role);
+	}
+
+	
 
 }

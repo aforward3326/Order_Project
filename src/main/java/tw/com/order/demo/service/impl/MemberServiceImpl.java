@@ -1,7 +1,9 @@
 package tw.com.order.demo.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,8 +60,8 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 	}
 
 	@Override
-	public void deleteMember(Long id) {
-		this.memberRepository.deleteById(id);
+	public void deleteMember(String id) {
+		this.memberRepository.deleteByMemberId(id);
 
 	}
 
@@ -83,15 +85,13 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 	@Override
 	public String updateMemberPassword(Member member) {
 		
-		if(member.getPassword() == null) {
-			return null;
-		}else {
+		
 		BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder(10);
 		member.setPassword(passwordEncoder.encode(member.getPassword())); 
 		
 		memberRepository.updateMemberPassword(member.getMemberId(), member.getPassword());
 		return member.getMemberId();
-		}
+		
 	}
 
 
@@ -117,13 +117,34 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
 	@Override
 	public String updateMemberRoles(Member member) {
-		Role rolemember= roleRepository.findById(member.getRoles());
-		member.addRole(rolemember);
-		memberRepository.save(member);
 		
-		memberRepository.updateMemberRoles(member.getMemberId(),member.getRoles());
+//		Role rolemember= roleRepository.findByName(member.getRoles());
+//		member.addRole(rolemember);
+		
+		memberRepository.updateMemberRoles(member.getMemberId(),member.getRole());
 		
 		return member.getMemberId();
+		
+	}
+
+	@Override
+	public void updateMemberPasswordAndRoles(Member member) {		
+//		BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder(10);
+//		member.setPassword(passwordEncoder.encode(member.getPassword())); 
+		
+		memberRepository.save(member);
+//		memberRepository.save(member);
+		
+		}
+
+	@Override
+	public void updateMemberPasswordByAdmin(Member member) {
+		BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder(10);
+		member.setPassword(passwordEncoder.encode(member.getPassword())); 
+		
+		memberRepository.updateMemberPassword(member.getMemberId(), member.getPassword());
+		
+	}
 		
 	}
 
@@ -131,4 +152,4 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
 	
 
-}
+

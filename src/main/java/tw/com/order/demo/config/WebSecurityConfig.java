@@ -48,11 +48,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/dashboard/**")//.hasRole("ADMIN")
-       // .antMatchers(HttpMethod.POST,"/dashboard/user/**")//.hasRole("USER")   
-		.authenticated()
-		.anyRequest()
-		.permitAll()
+		
+		.antMatchers("/dashboard/**").hasAnyAuthority("admin","Member","editor")
+		.antMatchers("/editor/**").hasAnyAuthority("admin","editor")
+		.antMatchers("/admin/**").hasAnyAuthority("admin")
+//		.antMatchers().authenticated()
+		.anyRequest().permitAll()
+		
+		
+		
 		.and()
 		.formLogin()
 		.loginPage("/login") //自訂login畫面

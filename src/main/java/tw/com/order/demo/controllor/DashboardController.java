@@ -25,48 +25,50 @@ import tw.com.order.demo.entities.Role;
 import tw.com.order.demo.service.MemberService;
 import tw.com.order.demo.service.OrderService;
 
-
 @Controller
 public class DashboardController {
-	
+
 	@Autowired
 	private OrderService orderService;
-	
+
 	@Autowired
 	private MemberService memberService;
-	
-	@GetMapping({"/dashboard"})
-	public String getDashBoard(@AuthenticationPrincipal CustomUserDetails loggedUser,Model model) {
-	Member member=new Member();
-	model.addAttribute("member",member);
+
+	@GetMapping({ "/dashboard" })
+	public String getDashBoard(@AuthenticationPrincipal CustomUserDetails loggedUser, Model model) {
+		Member member = new Member();
+		model.addAttribute("member", member);
 		return "dashboard/dashboard";
 	}
-	
-	@GetMapping({"/updatemember/{id}"})
-	public String updateMember(@AuthenticationPrincipal CustomUserDetails loggedUser,@PathVariable(value="id") String id ,Model model) {		
+
+	@GetMapping({ "/updatemember/{id}" })
+	public String updateMember(@AuthenticationPrincipal CustomUserDetails loggedUser,
+			@PathVariable(value = "id") String id, Model model) {
 		id = loggedUser.getMemberId();
-		Member member= memberService.getMemberById(id);
-		model.addAttribute("member",member);
+		Member member = memberService.getMemberById(id);
+		model.addAttribute("member", member);
 		Map<String, Object> sexes = new HashMap<String, Object>();
 		sexes.put("其他", 2);
-	    sexes.put("女", 1);
-	    sexes.put("男", 0);
-	    model.addAttribute("sexes", sexes);
-	    System.out.println(id);
+		sexes.put("女", 1);
+		sexes.put("男", 0);
+		model.addAttribute("sexes", sexes);
+		System.out.println(id);
 		return "dashboard/update_member";
 	}
-	
-	@GetMapping({"/updatememberpassword/{id}"})
-	public String updateMemberPassword(@AuthenticationPrincipal CustomUserDetails loggedUser,@PathVariable(value="id") String id ,Model model) {
+
+	@GetMapping({ "/updatememberpassword/{id}" })
+	public String updateMemberPassword(@AuthenticationPrincipal CustomUserDetails loggedUser,
+			@PathVariable(value = "id") String id, Model model) {
 		id = loggedUser.getMemberId();
-		Member member= memberService.getMemberById(id);
-		model.addAttribute("member",member);
+		Member member = memberService.getMemberById(id);
+		model.addAttribute("member", member);
 		System.out.println(id);
 		return "dashboard/update_member_password";
 	}
-	
+
 	@PostMapping("/updateMember")
-	public String saveUpdateMember( Member member, RedirectAttributes redirectAttributes,@AuthenticationPrincipal CustomUserDetails loggedUser)throws IOException {		
+	public String saveUpdateMember(Member member, RedirectAttributes redirectAttributes,
+			@AuthenticationPrincipal CustomUserDetails loggedUser) throws IOException {
 		memberService.updateMember(member);
 		loggedUser.setName(member.getName());
 		loggedUser.setUnit(member.getUnit());
@@ -75,59 +77,60 @@ public class DashboardController {
 		loggedUser.setOfficephone(member.getOfficephone());
 		redirectAttributes.addFlashAttribute("message", "更新成功");
 		return "redirect:/dashboard";
-		
+
 	}
-	
+
 	@PostMapping("/updateMemberPassword")
-	public String saveUpdateMemberPassword( Member member, RedirectAttributes redirectAttributes,@AuthenticationPrincipal CustomUserDetails loggedUser)throws IOException {
-		
-		
-		
-		memberService.updateMemberPassword(member);
-		redirectAttributes.addFlashAttribute("message", "更新成功");
-		
-		return "redirect:/login";
-				
+	public String saveUpdateMemberPassword(Member member, RedirectAttributes redirectAttributes,
+			@AuthenticationPrincipal CustomUserDetails loggedUser) throws IOException {
+		if (member.getPassword().isEmpty()) {
+			return "warn/nochange";
+		} else {
+			memberService.updateMemberPassword(member);
+			redirectAttributes.addFlashAttribute("message", "更新成功");
+			return "redirect:/login";
+		}
+
 	}
-	
-	@GetMapping({"/updatememberrolesbyadmin/{id}"})
-	public String updateMemberRolesByAdmin(@PathVariable(value="id") String id ,Model model) {
-		Member member= memberService.getMemberById(id);
-		model.addAttribute("member",member);
+
+	@GetMapping({ "/updateMemberPasswordbyadmin/{id}" })
+	public String updateMemberPasswordByAdmin(@PathVariable(value = "id") String id, Model model) {
+		Member member = memberService.getMemberById(id);
+		model.addAttribute("member", member);
 		System.out.println(id);
 		return "admin/update_member_password";
-		
+
 	}
-	
+
 	@PostMapping("/updateMemberPasswordbyadmin")
-	public String saveUpdateMemberPasswordByAdmin( Member member)throws IOException {
-		
-		if(member.getPassword()==null) {
-		return "admin/allmember";
+	public String saveUpdateMemberPasswordByAdmin(Member member) throws IOException {
+
+		if (member.getPassword().isEmpty()) {
+			return "warn/nochange";
+		} else {
+			memberService.updateMemberPasswordByAdmin(member);
+			return "redirect:/all_memberlist";
 		}
-		memberService.updateMemberPassword(member);
-		return "redirect:/login";
-				
+
 	}
-	
-	@GetMapping({"/updatememberroles/{id}"})
-	public String updateMemberRoles(@AuthenticationPrincipal CustomUserDetails loggedUser,@PathVariable(value="id") String id ,Model model) {
-		id = loggedUser.getMemberId();
-		Member member= memberService.getMemberById(id);
-		List<Role> listRoles=memberService.getRoles();
-		model.addAttribute("member",member);
-		model.addAttribute("listRoles",listRoles);
+
+	@GetMapping({ "/updatememberroles/{id}" })
+	public String updateMemberRoles(@PathVariable(value = "id") String id, Model model) {
+
+		Member member = memberService.getMemberById(id);
+		List<Role> listRoles = memberService.getRoles();
+		model.addAttribute("member", member);
+		model.addAttribute("listRoles", listRoles);
 		System.out.println(id);
 		return "admin/update_member_roles";
 	}
-	
-	@PostMapping("/updateMemberRoles")
-	public String saveUpdateMemberRoles( Member member, RedirectAttributes redirectAttributes,@AuthenticationPrincipal CustomUserDetails loggedUser)throws IOException {
-		memberService.updateMemberRoles(member);
-		redirectAttributes.addFlashAttribute("message", "更新成功");
+
+	@PostMapping("/updateMemberPasswordAndRoles")
+	public String saveUpdateMemberPasswordAndRoles(Member member) {
+
+		memberService.updateMemberPasswordAndRoles(member);
+
 		return "redirect:/all_memberlist";
 	}
-	
-
 
 }

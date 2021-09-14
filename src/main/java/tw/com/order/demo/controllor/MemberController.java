@@ -60,7 +60,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/deleteMember/{id}")
-	public String deleteMember(@PathVariable(value="id") Long id) {
+	public String deleteMember(@PathVariable(value="id") String id) {
 		this.memberService.deleteMember(id);
 		return "redirect:/all_memberlist";
 	}

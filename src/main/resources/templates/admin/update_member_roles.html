@@ -1,31 +1,25 @@
 <!DOCTYPE html>
 <html xmls:th="http://www.thymeleaf.org/">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<!-- Bootstrap Icons-->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-	rel="stylesheet" />
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<!-- SimpleLightbox plugin CSS-->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css"
-	rel="stylesheet" />
-<!-- Core theme CSS (includes Bootstrap)-->
-<link href="css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}"/>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+	<!-- Bootstrap Icons-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- SimpleLightbox plugin CSS-->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
+
 <body>
 	<header>
 		<div th:replace="dashboard/header::dash_header"></div>
@@ -41,13 +35,27 @@
 				<div class="col-md-10 col-lg-10">
 					<canvas class="my-4 w-100" id="myChart" width="900" height="0"></canvas>
 					<h1>變更使用者權限</h1>
-					<form action="#" th:action="@{/updateMemberRoles}"
-						th:object="${member}" method="post">
-						<input type="hidden" th:field="*{memberId}"><br> 
+					<canvas class="my-4 w-100" id="myChart" width="900" height="20"></canvas>
+					<form action="#" th:action="@{/updateMemberPasswordAndRoles}" th:object="${member}" method="post">
+						<input type="hidden" th:field="*{memberId}">
+						<input type="hidden" th:field="*{userEmail}">
+						<input type="hidden" th:field="*{password}">
+						<label for="exampleFormControlInput1">使用者</label>
+						<input type="text" th:field="*{name}" readonly="readonly"
+							class="form-control mb-4 col-4"><br>
+						<input type="hidden" th:field="*{sex}">
+						<input type="hidden" th:field="*{unit}">
+						<input type="hidden" th:field="*{cellphone}">
+						<input type="hidden" th:field="*{officephone}">
+						<input type="hidden" th:field="*{address}">
+						<label for="exampleFormControlInput1">設定權限</label><br>
+						
 						<th:block th:each="role : ${listRoles}">
-						<input type="checkbox" th:field="*{roles}" th:value="${role.roleName}" th:text="${role.roleName}">
+							<input type="checkbox" th:field="*{role}" th:value="${role.id}" th:text="${role.roleName}" class="m-2">
 						</th:block>
 						<br>
+						<br>
+						<canvas class="my-4 w-100" id="myChart" width="900" height="20"></canvas>
 						<button type="submit" class="btn btn-info col-2">更新</button>
 						<br> <br>
 					</form>
@@ -62,13 +70,12 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
 </body>
+
 </html>

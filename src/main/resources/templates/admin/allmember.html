@@ -72,14 +72,14 @@
 									<td th:text="${member.officephone}"></td>
 									<td th:text="${member.createAt}"></td>
 									<td th:text="${member.updateAt}"></td>
-									<td th:text="${member.roles}"></td>
+									<td th:text="${member.role}"></td>
 									<td>
 									<a
 										th:href="@{/updatememberroles/{id}(id=${member.memberId})}"
-										class="btn btn-danger">變更權限</a>
+										class="btn btn-primary">變更權限</a>
 									<a
-										th:href="@{/updatememberrolesbyadmin/{id}(id=${member.memberId})}"
-										class="btn btn-danger">變更密碼</a>
+										th:href="@{/updateMemberPasswordbyadmin/{id}(id=${member.memberId})}"
+										class="btn btn-warning">變更密碼</a>
 									<a
 										th:href="@{/deleteMember/{id}(id=${member.memberId})}"
 										class="btn btn-danger">刪除</a></td>

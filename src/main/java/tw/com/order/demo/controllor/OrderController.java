@@ -59,7 +59,7 @@ public class OrderController {
 	@GetMapping(value = { "/all_orderlist" })
 	public String allOrderList(Model model) {
 		model.addAttribute("orderSearch", orderService.getAllOrder());
-		return "admin/allorder_search";
+		return "editor/allorder_search";
 	}
 
 	@GetMapping(value = { "/new_orderlist" })
@@ -89,7 +89,7 @@ public class OrderController {
 	@GetMapping("/deleteOrder/{orderid}")
 	public String deleteOrder(@PathVariable(value = "orderid") String orderId) {
 		this.orderService.deleteOrder(orderId);
-		return "redirect:/dashboard/order_search";
+		return "redirect:/dashboard";
 	}
 
 	//查詢單一會員訂單

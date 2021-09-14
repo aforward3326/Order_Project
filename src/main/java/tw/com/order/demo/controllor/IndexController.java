@@ -19,7 +19,7 @@ public class IndexController {
 	@Autowired
 	private NewsService newsService;
 	
-	@GetMapping({"/","","index","/logout"})
+	@GetMapping({"/","","index"})
 	public String getIndex(Model model) {
 		model.addAttribute("news", newsService.getAllNews());
 		

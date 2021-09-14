@@ -17,6 +17,10 @@ import tw.com.order.demo.entities.Role;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
+	
+	
+	
+
 	@Query("SELECT m FROM Member m WHERE m.userEmail =:userEmail")
 
 	Member findByEmail(String userEmail);
@@ -41,12 +45,16 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 	
 	public List<Member> findAllByMemberId(String  memberId);
 	
-    public void deleteByMemberId(String memberId);
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM Member m WHERE m.memberId = :memberId ")
+	void deleteByMemberId(String memberId);
     
     @Transactional
 	@Modifying
-	@Query("UPDATE Member m SET  m.roles = :roles WHERE m.memberId = :memberId")
-	Integer updateMemberRoles(@Param("memberId") String memberId, @Param("roles") Set<Role> roles);
+	@Query("UPDATE Member m SET  m.role = :role WHERE m.memberId = :memberId")
+	Integer updateMemberRoles(@Param("memberId") String memberId, @Param("role") Set<Role> role);
 
 	
 

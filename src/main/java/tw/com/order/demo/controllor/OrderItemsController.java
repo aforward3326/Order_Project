@@ -33,7 +33,7 @@ public class OrderItemsController {
 	@GetMapping(value= {"/all_orderitemslist"})
 	public String allItemsList(Model model) {
 		model.addAttribute("orderItems", orderItemsService.getAllOrderItems());
-		return "admin/orderitems_list";
+		return "editor/orderitems_list";
 	}
 	
 	@GetMapping(value="/addOrderItem/{id}")
@@ -43,14 +43,14 @@ public class OrderItemsController {
 		model.addAttribute("member",member);
 		OrderItems orderItems=new OrderItems();
 		model.addAttribute("orderItems", orderItems);
-		return "admin/additems";
+		return "editor/additems";
 	}
 	
 	// 儲存品項
 	@PostMapping("/saveOrderItem")
 	public String saveOrderItem(@ModelAttribute("orderItems") OrderItems orderItems, Model model) {
 		orderItemsService.saveOrderItems(orderItems);
-		return "redirect:/dashboard";
+		return "redirect:/all_orderitemslist";
 	}
 	
 	// 更新品項
@@ -66,7 +66,7 @@ public class OrderItemsController {
 	@GetMapping("/deleteOrderItems/{id}")
 	public String deleteOrderItems(@PathVariable(value = "id") Long id) {
 		this.orderItemsService.deleteOrderItems(id);
-		return "/dashboard";
+		return "redirect:/all_orderitemslist";
 	}
 	
 	@RequestMapping(method= RequestMethod.GET)

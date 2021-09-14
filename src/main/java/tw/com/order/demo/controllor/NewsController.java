@@ -38,7 +38,7 @@ public class NewsController {
 		model.addAttribute("member", member);
 		News news = new News();
 		model.addAttribute("news", news);
-		return "admin/addnews";
+		return "editor/addnews";
 	}
 
 	// 儲存品項
@@ -53,7 +53,7 @@ public class NewsController {
 	public String updateNews(@PathVariable(value = "id") int id, Model model) {
 		News news = newsService.getNewsById(id);
 		model.addAttribute("news", news);
-		return "admin/newsedit";
+		return "editor/newsedit";
 
 	}
 
@@ -61,7 +61,7 @@ public class NewsController {
 	@GetMapping("/deleteNews/{id}")
 	public String deleteNews(@PathVariable(value = "id") int id) {
 		this.newsService.deleteNews(id);
-		return "admin/news_list";
+		return "redirect:/all_newslist";
 	}
 
 	// 公告內容
